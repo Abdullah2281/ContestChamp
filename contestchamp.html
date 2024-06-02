@@ -88,6 +88,77 @@
         .btn:hover {
             background-color: #155ab6;
         }
+
+        #ratings-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        #main-content {
+            flex: 3;
+        }
+
+        #side-content {
+            flex: 1;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            min-width: 400px;
+            border: 1px solid #ddd;
+        }
+
+        table thead tr {
+            background-color: #f2f2f2;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        #search-bar {
+            margin-bottom: 20px;
+        }
+
+        #search-bar input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #user-info, #top-rated {
+            margin-bottom: 20px;
+        }
+
+        #user-info h2, #top-rated h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        #top-rated table th, #top-rated table td {
+            padding: 5px;
+        }
     </style>
 </head>
 
@@ -116,7 +187,71 @@
 
     <section id="ratings">
         <h1 class="h-primary">Ratings</h1>
-        <p>Ratings content goes here...</p>
+        <div id="ratings-content">
+            <div id="main-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Number of Contests Participated</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>user1</td>
+                            <td>10</td>
+                            <td>1500</td>
+                        </tr>
+                        <tr>
+                            <td>user2</td>
+                            <td>15</td>
+                            <td>1600</td>
+                        </tr>
+                        <tr>
+                            <td>user3</td>
+                            <td>20</td>
+                            <td>1700</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="side-content">
+                <div id="search-bar">
+                    <input type="text" placeholder="Search User">
+                </div>
+                <div id="user-info">
+                    <h2>Your Profile</h2>
+                    <p><strong>Username:</strong> Mayank jha</p>
+                    <p><strong>Rating:</strong> 1095</p>
+                    <p><strong>Contribution:</strong> 0</p>
+                </div>
+                <div id="top-rated">
+                    <h2>Top Rated</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>ankit</td>
+                                <td>3757</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>rohit</td>
+                                <td>3647</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="problemset">
@@ -162,7 +297,7 @@
             });
 
             // Show the selected section
-            document.getElementById(sectionId).style.display = 'flex'; // Ensure flex display for centering
+            document.getElementById(sectionId).style.display = sectionId === 'home' ? 'flex' : 'block';
         }
     </script>
 </body>
