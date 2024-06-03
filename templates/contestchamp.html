@@ -177,6 +177,7 @@
             <li class="item"><a href="#ratings" onclick="showSection('ratings')">Ratings</a></li>
             <li class="item"><a href="#problemset" onclick="showSection('problemset')">Problemset</a></li>
             <li class="item"><a href="#contact" onclick="showSection('contact')">Contact Us</a></li>
+            <li class="item"><a href="/profile" onclick="showSection('profile')">Profile</a></li>
         </ul>
     </nav>
 
@@ -262,6 +263,33 @@
     <section id="problemset">
         <h1 class="h-primary">Problemset</h1>
         <p>Problemset content goes here...</p>
+    </section>
+
+    <section id="profile">
+        <div id="profile-container">
+            <div id="profile-header">
+                <h1>Profile</h1>
+            </div>
+            <div id="profile-content">
+                <div id="profile-pic">
+                    <img src="{% static 'images/profile-placeholder.png' %}" alt="Profile Picture">
+                    <a href="#">Change photo</a>
+                </div>
+                <div id="profile-details">
+                    <h2 class="username">a_for_abdullah</h2>
+                    <p class="fullname">Abdullah Tanveer, <a href="#">New Delhi, India</a></p>
+                    <p class="university">From <a href="#">IIT Delhi</a></p>
+                    <p class="rating">Contest rating: 2200 (Rank: Master)</p>
+                    <p class="contribution">Contribution: 0</p>
+                    <p class="friends">Friend of: 13 users</p>
+                    <p class="email">Email: contestchamp@example.com (not visible)</p>
+                    <p class="last-visit">Last visit: online now</p>
+                    <p class="registered">Registered: 17 months ago</p>
+                    <a href="#" class="my-friends">My friends</a>
+                    <a href="#" class="settings">Change settings</a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="contact">
