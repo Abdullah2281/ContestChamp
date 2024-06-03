@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Best Online Food Delivery Service in India | MyOnlineMeal.com</title>
+    <title>User Profile | ContestChamp</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" media="screen and (max-width: 1170px)" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 1170px)" href="{% static 'css/phone.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
 </head>
 
@@ -16,23 +16,40 @@
     <header>
         <h1>ContestChamp</h1>
         <nav>
-            <li class="item"><a href="/" onclick="showSection('home')">Home</a></li>
-            <li class="item"><a href="/login" onclick="showSection('login')">Login</a></li>
-            <li class="item"><a href="/contests" onclick="showSection('contests')">Contests</a></li>
-            <li class="item"><a href="/problems" onclick="showSection('problemset')">Problemset</a></li>
-            <li class="item"><a href="/ratings" onclick="showSection('ratings')">Ratings</a></li>
+            <li class="item"><a href="/">Home</a></li>
+            <li class="item"><a href="/login">Login</a></li>
+            <li class="item"><a href="/contests">Contests</a></li>
+            <li class="item"><a href="/problems">Problemset</a></li>
+            <li class="item"><a href="/ratings">Ratings</a></li>
+            <li class="item"><a href="#profile">Profile</a></li>
         </nav>
     </header>
     <main>
-        <section class="profile">
-            <h2>itsme_ankit's Profile</h2>
-            <p>Rating: 2200</p>
-            <p>Rank: Master</p>
-            <h3>Contests Participated</h3>
-            <ul>
-                <li><a href="/contest/1">Contest 1</a> - Rank: 5</li>
-                <!-- Add more contests here -->
-            </ul>
+        <section id="profile">
+            <div id="profile-container">
+                <div id="profile-header">
+                    <h1>Profile</h1>
+                </div>
+                <div id="profile-content">
+                    <div id="profile-pic">
+                        <img src="{% static 'images/profile-placeholder.png' %}" alt="Profile Picture">
+                        <a href="#">Change photo</a>
+                    </div>
+                    <div id="profile-details">
+                        <h2 class="username">a_for_abdullah</h2>
+                        <p class="fullname">Abdullah Tanveer, <a href="#">New Delhi, India</a></p>
+                        <p class="university">From <a href="#">IIT Delhi</a></p>
+                        <p class="rating">Contest rating: 2200 (Rank: Master)</p>
+                        <p class="contribution">Contribution: 0</p>
+                        <p class="friends">Friend of: 13 users</p>
+                        <p class="email">Email: contestchamp@example.com (not visible)</p>
+                        <p class="last-visit">Last visit: online now</p>
+                        <p class="registered">Registered: 17 months ago</p>
+                        <a href="#" class="my-friends">My friends</a>
+                        <a href="#" class="settings">Change settings</a>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
