@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 1170px)" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>ContestChamp</h1>
+        <nav id="navbar">
+            <div id="logo">
+                <img src="{% static 'assets/logo.png' %}" alt="ERR">
+            </div>
+            <ul>
+                <li class="item"><a href="/" onclick="showSection('home')">Home</a></li>
+                <li class="item"><a href="/login" onclick="showSection('login')">Login</a></li>
+                <li class="item"><a href="/contests" onclick="showSection('contests')">Contests</a></li>
+                <li class="item"><a href="/problems" onclick="showSection('problemset')">Problemset</a></li>
+                <li class="item"><a href="/ratings" onclick="showSection('ratings')">Ratings</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="problems">
+            <h2>Problem Set</h2>
+            <ul>
+                <li>
+                    <a href="/contest/1/problem/A">Problem A</a> - Difficulty Level
+                </li>
+                <!-- Add more problems here -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 ContestChamp</p>
+    </footer>
+</body>
+
+</html>

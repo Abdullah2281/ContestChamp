@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ContestChamp</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 1170px)" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        #navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        #navbar ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #navbar ul li {
+            margin: 0 10px;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .h-primary {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        section {
+            display: none;
+        }
+
+        #home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #f1f1f1;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #155ab6;
+        }
+
+        #ratings-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        #main-content {
+            flex: 3;
+        }
+
+        #side-content {
+            flex: 1;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            min-width: 400px;
+            border: 1px solid #ddd;
+        }
+
+        table thead tr {
+            background-color: #f2f2f2;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table tbody tr:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        #search-bar {
+            margin-bottom: 20px;
+        }
+
+        #search-bar input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #user-info,
+        #top-rated {
+            margin-bottom: 20px;
+        }
+
+        #user-info h2,
+        #top-rated h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        #top-rated table th,
+        #top-rated table td {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>ContestChamp</h1>
+        <nav id="navbar">
+            <div id="logo">
+                <img src="{% static 'assets/logo.png' %}" alt="ERR">
+            </div>
+            <ul>
+                <li class="item"><a href="/" onclick="showSection('home')">Home</a></li>
+                <li class="item"><a href="/login" onclick="showSection('login')">Login</a></li>
+                <li class="item"><a href="/contests" onclick="showSection('contests')">Contests</a></li>
+                <li class="item"><a href="/problems" onclick="showSection('problemset')">Problemset</a></li>
+                <li class="item"><a href="/ratings" onclick="showSection('ratings')">Ratings</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="problem-details">
+            <h2>Problem A</h2>
+            <p>Difficulty: Easy</p>
+            <p>Time Limit: 2 seconds</p>
+            <p>Memory Limit: 256 MB</p>
+            <h3>Description</h3>
+            <p>Write the problem description here...</p>
+            <h3>Input</h3>
+            <p>Describe the input format...</p>
+            <h3>Output</h3>
+            <p>Describe the output format...</p>
+            <h3>Example</h3>
+            <h4>Input</h4>
+            <pre>
+            5
+            1 2 3 4 5
+            </pre>
+            <h4>Output</h4>
+            <pre>
+            15
+            </pre>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 ContestChamp</p>
+    </footer>
+</body>
+
+</html>
