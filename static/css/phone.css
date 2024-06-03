@@ -61,3 +61,19 @@
     font-size: 13px;
     padding: 4px 8px;
 }
+
+/* Profile Section */
+#profile-content {
+    flex-direction: column;
+    align-items: center;
+}
+
+#profile-details {
+    align-items: center;
+    text-align: center;
+}
+
+#profile-pic img {
+    width: 100px;
+    height: 100px;
+}
