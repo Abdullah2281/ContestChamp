@@ -15,5 +15,11 @@
             "src": "/(.*)",
             "dest": "ContestChamp_backend/wsgi.py"
         }
-    ]
+    ],
+    "build": {
+        "env": {
+            "PYTHONUNBUFFERED": "1"
+        }
+    },
+    "buildCommand": "pip3 install -r requirements.txt && python3 manage.py collectstatic --noinput && python3 manage.py migrate"
 }
