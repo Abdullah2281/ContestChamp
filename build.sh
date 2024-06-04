@@ -16,6 +16,9 @@ python3 -m venv my_env
 source my_env/bin/activate
 
 python3 --version
+
+apt-get install libsqlite3-dev
+
 python3 -c "import sqlite3"
 
 # Install dependencies (Vercel will handle this during deployment)
