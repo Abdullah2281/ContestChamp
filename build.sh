@@ -9,17 +9,28 @@ echo "Start Build"
 echo "Started Venv"
 # apt install python3.10-venv
 
-which python
-which pip
+python3 --version
 
 python3 -m venv my_env
 source my_env/bin/activate
 
 python3 --version
 
-apt-get install libsqlite3-dev
+
+wget https://www.sqlite.org/src/tarball/sqlite.tar.gz
+tar xvfz sqlite.tar.gz
+cd sqlite*/
+
+# Configure, compile, and install SQLite
+./configure
+make
+make install
+
+cd ../
 
 python3 -c "import sqlite3"
+
+
 
 # Install dependencies (Vercel will handle this during deployment)
 echo "Started my_env"
