@@ -17,7 +17,7 @@ source my_env/bin/activate
 python3 --version
 
 
-wget https://www.sqlite.org/src/tarball/sqlite.tar.gz
+curl -O https://www.sqlite.org/src/tarball/sqlite.tar.gz
 tar xvfz sqlite.tar.gz
 cd sqlite*/
 
