@@ -1,0 +1,12 @@
+# Ignore compiled binaries
+*.exe
+*.o
+*.pyc
+
+# Ignore log files
+*.log
+
+# Ignore directories
+/logs/
+/tmp/
+./my_env/*

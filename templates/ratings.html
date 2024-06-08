@@ -43,11 +43,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                           {% for username, rating in user_ratings.items %}
                             <tr>
-                                <td>user1</td>
-                                <td>10</td>
-                                <td>1500</td>
+                                <td>{{ username }}</td>
+                                <td>3</td>
+                                <td>{{ rating }}</td>
                             </tr>
+                            {% endfor %} 
                             <tr>
                                 <td>user2</td>
                                 <td>15</td>
@@ -103,5 +105,4 @@
         <p>&copy; 2024 ContestChamp</p>
     </footer>
 </body>
-
 </html>
