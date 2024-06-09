@@ -68,10 +68,12 @@
                         <input type="text" placeholder="Search User">
                     </div>
                     <div id="user-info">
+                        {% if Current_user %}
                         <h2>Your Profile</h2>
-                        <p><strong>Username:</strong> Mayank jha</p>
-                        <p><strong>Rating:</strong> 1095</p>
+                        <p><strong>Username:</strong> {{Current_user.username}}</p>
+                        <p><strong>Rating:</strong> {{Current_user.rating}}</p>
                         <p><strong>Contribution:</strong> 0</p>
+                        {% endif %}
                     </div>
                     <div id="top-rated">
                         <h2>Top Rated</h2>
