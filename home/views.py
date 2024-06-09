@@ -9,6 +9,8 @@ from .forms import CustomUserCreationForm
 from .models import UserProfile
 from .models import CustomUser
 from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout
+
 
 def home(request):
     return render(request, "home.html")
@@ -36,15 +38,30 @@ def my_login_view(request):
     return render(request, "login.html")
 
 
+def logout_view(request):
+    logout(request)
+    return redirect("login")
+
+
 def ratings(request):
     users = CustomUser.objects.all()
+    current_user = {}
+    if request.user.is_authenticated:
+        user_ = request.user
+        current_user["username"] = user_.username
+        current_user["rating"] = user_.rating
+        # print("User Exit")
     user_ratings = {}
     for user in users:
         # Example: Calculate rating based on user's activity or performance
         # Replace this with your actual rating calculation logic
         rating = user.rating
         user_ratings[user.username] = rating
-    return render(request, "ratings.html", {"user_ratings": user_ratings})
+    return render(
+        request,
+        "ratings.html",
+        {"user_ratings": user_ratings, "Current_user": current_user},
+    )
 
 
 def problems(request):
@@ -57,31 +74,6 @@ def contests(request):
 
 def profile(request):
     return render(request, "profile.html")
-
-
-# def register(request):
-#     if request.method == "POST":
-#         username = request.POST["username"]
-#         Name = request.POST["name"]
-#         email = request.POST["mail"]
-#         p1 = request.POST["password1"]
-#         p2 = request.POST["password2"]
-#         if p1 == p2:
-#             user_1 = UserProfile
-#             user_2 = CustomUser
-#             user_2.username=username
-#             user_2.name = Name
-#             user_2.email = email
-#             user_2.password = p1
-#             user_1.user = user_2
-#             UserProfile.objects.create(user=user_1)
-#             messages.info(request, "User Created")
-
-#             return redirect("login")
-#         else:
-#             messages.info(request, "Password Didn't match")
-#             return redirect("register")
-#     return render(request, "register.html")
 
 
 def register(request):
