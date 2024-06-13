@@ -3,6 +3,7 @@
 
 # Ignore log files
 *.log
+myenv/*
 
 # Databases
 local_settings.py
