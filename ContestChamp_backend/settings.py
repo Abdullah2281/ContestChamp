@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'home.middleware.Redirect404Middleware'
+    "home.middleware.Redirect404Middleware",
 ]
 
 ROOT_URLCONF = "ContestChamp_backend.urls"
@@ -82,12 +83,17 @@ WSGI_APPLICATION = "ContestChamp_backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+DATABASE_URL = "postgres://test_db_53tz_user:g3vzqRkjsHcvnSWpMSzyR4vMIcwqh0fc@dpg-cpld2i6d3nmc73cuf05g-a.oregon-postgres.render.com/test_db_53tz"
+DATABASES = {"default": dj_database_url.parse(DATABASE_URL)}
+
+# For using in local host, Un comment out the below one and commentout the above database
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
@@ -107,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
     {
-        'NAME': 'your_app.validators.MatchPasswordValidator',
+        "NAME": "your_app.validators.MatchPasswordValidator",
     },
 ]
 
@@ -136,4 +142,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User
 AUTH_USER_MODEL = "home.CustomUser"
-LOGIN_REDIRECT_URL = '/login'
+LOGIN_REDIRECT_URL = "/login"
