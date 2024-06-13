@@ -11,6 +11,7 @@ from .models import CustomUser
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import make_password,check_password
+from django.http import JsonResponse
 
 
 def home(request):
@@ -176,3 +177,12 @@ def settings(request):
     else:
         return render(request, 'profile_settings.html')
     
+
+def user_search(request):
+    query = request.GET.get('q', '')
+    if query:
+        users = CustomUser.objects.filter(username__icontains=query)[:10]  # Limiting to 10 results
+        results = [{'username': user.username} for user in users]
+    else:
+        results = []
+    return JsonResponse(results, safe=False)

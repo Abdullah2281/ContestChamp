@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" media="screen and (max-width: 1170px)" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -43,13 +44,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                           {% for username, rating in user_ratings.items %}
+                            {% for username, rating in user_ratings.items %}
                             <tr>
                                 <td>{{ username }}</td>
                                 <td>3</td>
                                 <td>{{ rating }}</td>
                             </tr>
-                            {% endfor %} 
+                            {% endfor %}
                             <tr>
                                 <td>user2</td>
                                 <td>15</td>
@@ -64,8 +65,9 @@
                     </table>
                 </div>
                 <div id="side-content">
-                    <div id="search-bar">
-                        <input type="text" placeholder="Search User">
+                    <div id="user-search-container">
+                        <input type="text" id="user-search" placeholder="Search for users...">
+                        <ul id="user-suggestions"></ul>
                     </div>
                     <div id="user-info">
                         {% if Current_user %}
@@ -106,5 +108,29 @@
     <footer>
         <p>&copy; 2024 ContestChamp</p>
     </footer>
+
+    <script>
+        $(document).ready(function () {
+            $('#user-search').on('keyup', function () {
+                var query = $(this).val();
+                if (query.length > 2) {
+                    $.ajax({
+                        url: "{% url 'user_search' %}",
+                        data: { 'q': query },
+                        success: function (data) {
+                            $('#user-suggestions').empty();
+                            $.each(data, function (index, user) {
+                                var profileUrl = '/profile/' + user.username;
+                                $('#user-suggestions').append('<li><a href="' + profileUrl + '">' + user.username + '</a></li>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#user-suggestions').empty();
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
