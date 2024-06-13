@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import View
 from django.contrib import messages
@@ -10,6 +10,7 @@ from .models import UserProfile
 from .models import CustomUser
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
+from django.contrib.auth.hashers import make_password,check_password
 
 
 def home(request):
@@ -72,8 +73,31 @@ def contests(request):
     return render(request, "contests.html")
 
 
-def profile(request):
-    return render(request, "profile.html")
+def profile(request, user_id):
+    requested_user = CustomUser.objects.filter(username=user_id)
+    if len(requested_user) == 0:
+        # Code that runs if the specific exception occurs
+        messages.error(request, "No such user exists")
+        return redirect("home")
+    requested_user = requested_user[0]
+    current_user = request.user
+    user = {}
+    user["username"] = requested_user.username
+    user["rating"] = requested_user.rating
+    user["first_name"] = requested_user.first_name
+    user["university"] = requested_user.university
+    if current_user.username == user_id:
+        print(requested_user.email)
+        user["email"] = requested_user.email
+    return render(request, "profile.html", {"user": user})
+
+
+def user_view(request):
+    current_user = request.user
+    if len(current_user.username) == 0:
+        return redirect("login")
+    url = str("profile/" + current_user.username)
+    return redirect(url)
 
 
 def register(request):
@@ -83,6 +107,7 @@ def register(request):
         email = request.POST["mail"]
         password1 = request.POST["password1"]
         password2 = request.POST["password2"]
+        university = request.POST["university"]
         rating = 0  # Get the rating from the form
 
         if password1 == password2:
@@ -95,6 +120,7 @@ def register(request):
                         name  # Assuming 'name' field corresponds to first name
                     )
                     user.rating = rating  # Set the rating
+                    user.university = university
                     user.save()
                     UserProfile.objects.create(user=user)
                     messages.success(request, "User Created")
@@ -107,3 +133,46 @@ def register(request):
             messages.error(request, "Passwords didn't match")
 
     return render(request, "register.html")
+
+#profile settings
+@login_required
+def settings(request):
+    if request.method == 'POST':
+        first_name = request.POST["first_name"]
+        email = request.POST["email"]
+        university = request.POST["university"]
+        curr_password = request.POST["password"]
+        password1 = request.POST["password1"]
+        password2 = request.POST["password2"]
+        user = request.user
+
+        if not check_password(curr_password, user.password):
+            messages.error(request, "Wrong Password")
+            return redirect('settings')
+        if password1 and password2 and password1 != password2:
+            messages.error(request, "Passwords did not match.")
+            return redirect('settings')
+        
+        if CustomUser.objects.filter(email=email).exists() and user.email != email:
+            messages.error(request, "Email already exists")
+            return redirect('settings')
+        
+        # Update user fields
+        user.first_name = first_name
+        user.email = email
+
+        if password1:
+            user.password = make_password(password1)
+        user.save()
+
+        # Update profile fields
+        profile = CustomUser.objects.get(username = user.username)
+        profile.university = university
+        profile.save()
+
+        messages.success(request, 'Your profile has been updated successfully.')
+        url = str("profile/" + user.username)
+        return redirect(url)
+    else:
+        return render(request, 'profile_settings.html')
+    

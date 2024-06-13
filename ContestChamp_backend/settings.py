@@ -105,6 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
+    {
+        'NAME': 'your_app.validators.MatchPasswordValidator',
+    },
 ]
 
 
@@ -132,3 +135,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom User
 AUTH_USER_MODEL = "home.CustomUser"
+LOGIN_REDIRECT_URL = '/login'

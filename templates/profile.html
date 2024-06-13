@@ -36,22 +36,33 @@
                     <h1>Profile</h1>
                 </div>
                 <div id="profile-content">
+                    {% if messages %}
+                    <div id="messages">
+                        {% for message in messages %}
+                        <div class="message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     <div id="profile-pic">
                         <img src="{% static 'images/profile-placeholder.png' %}" alt="Profile Picture">
                         <a href="#">Change photo</a>
                     </div>
                     <div id="profile-details">
-                        <h2 class="username">a_for_abdullah</h2>
-                        <p class="fullname">Abdullah Tanveer, <a href="#">New Delhi, India</a></p>
-                        <p class="university">From <a href="#">IIT Delhi</a></p>
-                        <p class="rating">Contest rating: 2200 (Rank: Master)</p>
+                        <h2 class="username">{{ user.username }}</h2>
+                        <p class="fullname">{{user.first_name}} <a href="#">New Delhi, India</a></p>
+                        <p class="university">From <a href="#">{{ user.university }}</a></p>
+                        <p class="rating">Contest rating: {{ user.rating}} (Rank: Master)</p>
                         <p class="contribution">Contribution: 0</p>
                         <p class="friends">Friend of: 13 users</p>
-                        <p class="email">Email: contestchamp@example.com (not visible)</p>
+                        {% if user.email %}
+                        <p class="email">Email: {{ user.email }} (not visible)</p>
+                        <a href="#" class="my-friends">My friends</a>
+                        <a href="/settings" class="settings">Change settings</a>
+                        {% endif %}
                         <p class="last-visit">Last visit: online now</p>
                         <p class="registered">Registered: 17 months ago</p>
-                        <a href="#" class="my-friends">My friends</a>
-                        <a href="#" class="settings">Change settings</a>
                     </div>
                 </div>
             </div>

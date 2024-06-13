@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile Settings | ContestChamp</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 1170px)" href="{% static 'css/phone.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>ContestChamp</h1>
+          <nav id="navbar">
+            <div id="logo">
+                <img src="{% static 'assets/logo.png' %}" alt="ERR">
+            </div>
+            <ul>
+                <li class="item"><a href="/" onclick="showSection('home')">Home</a></li>
+                <li class="item"><a href="/login" onclick="showSection('login')">Login</a></li>
+                <li class="item"><a href="/contests" onclick="showSection('contests')">Contests</a></li>
+                <li class="item"><a href="/problems" onclick="showSection('problemset')">Problemset</a></li>
+                <li class="item"><a href="/ratings" onclick="showSection('ratings')">Ratings</a></li>
+                <li class="item"><a href="/profile" onclick="showSection('profile')">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="profile-settings">
+            <div id="settings-container">
+                <div id="settings-header">
+                    <h1>Profile Settings</h1>
+                </div>
+                <div id="settings-content">
+                    {% if messages %}
+                    <div id="messages">
+                        {% for message in messages %}
+                        <div class="message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <form method="POST" action="/settings">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" value="{{ user.username }}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="first_name">Name</label>
+                            <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}">
+                        </div>
+                        {% comment %} <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}">
+                        </div> {% endcomment %}
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="{{ user.email }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="university">University</label>
+                            <input type="text" id="university" name="university" value="{{ user.university }}">
+                        </div>
+                        {% comment %} <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <input type="number" id="rating" name="rating" value="{{ user.rating }}">
+                        </div> {% endcomment %}
+                        <div class="form-group">
+                            <label for="password">Current Password</label>
+                            <input type="password" id="password" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">New Password</label>
+                            <input type="password" id="password1" name="password1">
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Confirm New Password</label>
+                            <input type="password" id="password2" name="password2">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 ContestChamp</p>
+    </footer>
+</body>
+
+</html>
