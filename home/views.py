@@ -12,7 +12,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import make_password,check_password
 from django.http import JsonResponse
-
+from django.shortcuts import render, redirect,get_object_or_404
+from django.contrib import messages
+from .models import CustomUser, Friendship
 
 def home(request):
     return render(request, "home.html")
@@ -73,25 +75,53 @@ def problems(request):
 def contests(request):
     return render(request, "contests.html")
 
-
+@login_required
 def profile(request, user_id):
     requested_user = CustomUser.objects.filter(username=user_id)
-    if len(requested_user) == 0:
-        # Code that runs if the specific exception occurs
+    if not requested_user.exists():
         messages.error(request, "No such user exists")
         return redirect("home")
-    requested_user = requested_user[0]
+    
+    requested_user = requested_user.first()
     current_user = request.user
-    user = {}
-    user["username"] = requested_user.username
-    user["rating"] = requested_user.rating
-    user["first_name"] = requested_user.first_name
-    user["university"] = requested_user.university
+    
+    # Fetch friends of the requested user
+    friends = Friendship.objects.filter(user=requested_user).values_list('friend', flat=True)
+    friends_list = CustomUser.objects.filter(id__in=friends)
+    
+    user_data = {
+        "username": requested_user.username,
+        "rating": requested_user.rating,
+        "first_name": requested_user.first_name,
+        "university": requested_user.university,
+        "is_current_user": current_user.username == user_id,
+        "friends": friends_list
+    }
+    
     if current_user.username == user_id:
-        print(requested_user.email)
-        user["email"] = requested_user.email
-    return render(request, "profile.html", {"user": user})
+        user_data["email"] = requested_user.email
+    
+    return render(request, "profile.html", {"user": user_data})
 
+@login_required
+def add_friend(request, user_id):
+    friend = get_object_or_404(CustomUser, username=user_id)
+    current_user = request.user
+
+    if friend == current_user:
+        messages.error(request, "You cannot add yourself as a friend.")
+        return redirect('profile', user_id=user_id)
+    
+    # Check if already friends
+    existing_friendship = Friendship.objects.filter(user=current_user, friend=friend).exists()
+    if existing_friendship:
+        messages.info(request, "You are already friends.")
+    else:
+        # Create a new friendship
+        Friendship.objects.create(user=current_user, friend=friend)
+        messages.success(request, f"You are now friends with {friend.username}.")
+
+    return redirect('profile', user_id=user_id)
 
 def user_view(request):
     current_user = request.user

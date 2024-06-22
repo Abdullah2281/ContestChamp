@@ -15,7 +15,7 @@
 <body>
     <header>
         <h1>ContestChamp</h1>
-          <nav id="navbar">
+        <nav id="navbar">
             <div id="logo">
                 <img src="{% static 'assets/logo.png' %}" alt="ERR">
             </div>
@@ -51,19 +51,30 @@
                     </div>
                     <div id="profile-details">
                         <h2 class="username">{{ user.username }}</h2>
-                        <p class="fullname">{{user.first_name}} <a href="#">New Delhi, India</a></p>
+                        <p class="fullname">{{ user.first_name }} <a href="#">New Delhi, India</a></p>
                         <p class="university">From <a href="#">{{ user.university }}</a></p>
-                        <p class="rating">Contest rating: {{ user.rating}} (Rank: Master)</p>
+                        <p class="rating">Contest rating: {{ user.rating }} (Rank: Master)</p>
                         <p class="contribution">Contribution: 0</p>
-                        <p class="friends">Friend of: 13 users</p>
-                        {% if user.email %}
+                        <p class="friends">Friend of: {{ user.friends.count }} users</p>
+                        {% if user.is_current_user and user.email %}
                         <p class="email">Email: {{ user.email }} (not visible)</p>
-                        <a href="#" class="my-friends">My friends</a>
+                        <a href="#" class="my-friends" onclick="showSection('my-friends')">My friends</a>
                         <a href="/settings" class="settings">Change settings</a>
+                        {% endif %}
+                        {% if not user.is_current_user %}
+                        <a href="{% url 'add_friend' user.username %}" class="add-friend">Add as friend</a>
                         {% endif %}
                         <p class="last-visit">Last visit: online now</p>
                         <p class="registered">Registered: 17 months ago</p>
                     </div>
+                </div>
+                <div id="my-friends-section" style="display:none;">
+                    <h2>My Friends</h2>
+                    <ul>
+                        {% for friend in user.friends %}
+                        <li>{{ friend.username }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </section>
@@ -71,6 +82,12 @@
     <footer>
         <p>&copy; 2024 ContestChamp</p>
     </footer>
+
+    <script>
+        function showSection(section) {
+            document.getElementById('my-friends-section').style.display = (section === 'my-friends') ? 'block' : 'none';
+        }
+    </script>
 </body>
 
 </html>
