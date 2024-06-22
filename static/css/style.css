@@ -453,7 +453,8 @@ table tbody tr:hover {
     text-decoration: none;
 }
 
-#profile-details .my-friends, #profile-details .settings {
+#profile-details .my-friends,
+#profile-details .settings {
     margin-top: 10px;
     font-size: 0.9rem;
 }
@@ -529,4 +530,29 @@ form button:hover {
 .messages li.success {
     background-color: #dff0d8;
     color: #3c763d;
+}
+
+
+.problem-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.problem-table th,
+.problem-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.problem-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.problem-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.problem-table tr:hover {
+    background-color: #ddd;
 }

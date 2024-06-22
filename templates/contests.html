@@ -1,48 +1,56 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ContestChamp</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" media="screen and (max-width: 1170px)" href="{% static 'css/style.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
-</head>
-
-<body>
-    <header>
-        <h1>ContestChamp</h1>
-        <nav id="navbar">
-            <div id="logo">
-                <img src="{% static 'assets/logo.png' %}" alt="ERR">
-            </div>
-            <ul>
-                <li class="item"><a href="/" onclick="showSection('home')">Home</a></li>
-                <li class="item"><a href="/login" onclick="showSection('login')">Login</a></li>
-                <li class="item"><a href="/contests" onclick="showSection('contests')">Contests</a></li>
-                <li class="item"><a href="/problems" onclick="showSection('problemset')">Problemset</a></li>
-                <li class="item"><a href="/ratings" onclick="showSection('ratings')">Ratings</a></li>
-                <li class="item"><a href="/profile" onclick="showSection('profile')">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="contests">
-            <h2>Upcoming Contests</h2>
-            <ul>
-                <li>
-                    <a href="/contest/1">Contest 1</a> - Date and Time
+{% block content %}
+  <h1>Contests</h1>
+  {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
                 </li>
-                <!-- Add more contests here -->
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 ContestChamp</p>
-    </footer>
-</body>
-
-</html>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Registrations</th>
+      <th>Start Time</th>
+      <th>Length</th>
+    </tr>
+    <!-- Current Contests -->
+    <tr>
+      <td colspan="5"><h2>Current Contests</h2></td>
+    </tr>
+    {% for contest in curr_contests %}
+    <tr>
+      <td>{{ contest.id }}</td>
+      <td><a href="{% url 'contests_show' contest.id %}">{{ contest.name }}</a></td>
+      {% comment %} <td>{{ contest.name }}</td> {% endcomment %}
+      <td>{{ contest.registrations }}</td>
+      <td>{{ contest.start_time }}</td>
+      <td>{{ contest.length }}</td>
+    </tr>
+     {% if is_timer %}
+    <h1 div id="timer" data-end-time="{{  contest.start_time| date:'c' }}">00:00:00</h1>
+    <script src="{% static 'js/timer.js' %}"></script>
+    {% endif %}
+    {% endfor %}
+    <!-- Past Contests -->
+    {% if not is_timer %}
+      <tr>
+        <td colspan="5"><h2>Past Contests</h2></td>
+      </tr>
+      {% for contest in past_contests %}
+      <tr>
+        <td>{{ contest.id }}</td>
+        <td><a href="{% url 'contest' contest.id %}">{{ contest.name }}</a></td>
+        <td>{{ contest.registrations }}</td>
+        <td>{{ contest.start_time }}</td>
+        <td>{{ contest.length }}</td>
+      </tr>
+      {% endfor %}
+    {% endif %}
+  </table>
+{% endblock %}

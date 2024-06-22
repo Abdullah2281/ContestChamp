@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ contest.name }}</h1>
+  <p>Start Time: {{ contest.start_time }}</p>
+  <p> Length: {{ contest.length }}</p>
+  {% comment %} <p>Status: {{ contest.status }}</p> {% endcomment %}
+  <h2>Problems:</h2>
+  <table class="problem-table">
+  <thead>
+    <tr>
+      <th>Problem</th>
+      <th>Difficulty</th>
+      {% if contest.is_past_contest %}
+        {% comment %} <th>Status</th> {% endcomment %}
+        <th>Tags</th>
+      {% endif %}
+      <th>Solved By</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for problem in problems %}
+      <tr>
+        <td><a href="{% url 'problem' contest.id problem.id %}">{{ problem.title }}</a></td>
+        <td>{{ problem.difficulty }}</td>
+        {% if contest.is_past_contest %}
+        <td>
+          {% for tag in problem.tags %}
+            {{ tag.name }},
+          {% endfor %}
+        </td>
+        {% endif %}
+        <td>{{ problem.solved_by }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

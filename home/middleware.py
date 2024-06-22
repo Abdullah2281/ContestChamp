@@ -6,14 +6,15 @@ class Redirect404Middleware(MiddlewareMixin):
         if response.status_code == 404:
             # Redirect all non-existing URLs under /settings/ to /settings
             if request.path.startswith('/settings/'):
-                return redirect('settings')  # Name of the URL pattern for the settings page
+                return redirect('settings')
             if request.path.startswith('/profile/'):
-                return redirect('profile')  # Name of the URL pattern for the settings page
+                return redirect('profile') 
             if request.path.startswith('/contests/'):
-                return redirect('contests')  # Name of the URL pattern for the settings page
+                return redirect('contests') 
             if request.path.startswith('/ratings/'):
                 return redirect('ratings')
+            if request.path.startswith("/contest/"):
+                return redirect("contests")
             if request.path.startswith(""):
-                return redirect('home')  # Name of the URL pattern for the settings page
+                return redirect('home')
         return response
-    

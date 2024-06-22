@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, auth
 from django.urls import reverse_lazy
 from django.views import View
 from django.contrib import messages
-from .forms import CustomUserCreationForm
+# from .forms import CustomUserCreationForm
 from .models import UserProfile
 from .models import CustomUser
 from django.contrib.auth import login, authenticate
